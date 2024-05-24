@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+
+{% block title %} Lista de Entradas {% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Entradas</h1>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+            <h2 class="mb-0">Nova Entrada</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {% for entrada in lista.entrada_set.all %}
+                    {% include "main/movimento_form.html" with movimento=entrada %}
+                {% endfor %}
+
+                <!-- Adicionar Entrada -->
+                {% include "main/movimento_form.html" with movimento=None %}
+
+                <!-- Salvar -->
+                <button type="submit" name="save" value="save" class="btn btn-dark">
+                    Salvar
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

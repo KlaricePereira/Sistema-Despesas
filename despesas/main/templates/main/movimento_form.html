@@ -1,0 +1,6 @@
+<!-- movimento_form.html -->
+<div class="input-group mb-3">
+    <input type="text" value="{{ movimento.descricao }}" class="form-control" name="descricao{{ movimento.id }}" placeholder="Descrição">
+    <input type="date" value="{{ movimento.data }}" class="form-control" name="data{{ movimento.id }}" placeholder="Data">
+    <input type="text" pattern="[0-9]+(\.[0-9]{1,2})?" title="Informe um número válido" value="{{ movimento.valor }}" class="form-control" name="valor{{ movimento.id }}" placeholder="Valor">
+</div>

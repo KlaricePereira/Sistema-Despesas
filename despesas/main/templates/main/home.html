@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+
+{% block title %} Notas {% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Suas Anotações</h1>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+            <h2 class="mb-0">Nova Nota</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Salvar Nota</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de Notas -->
+    <div class="row">
+        {% for nota in notas %}
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{ nota.titulo }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ nota.conteudo }}</p>
+                        <p>Data de Criação: {{ nota.data_criacao }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

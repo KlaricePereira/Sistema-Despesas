@@ -1,0 +1,92 @@
+{% extends "main/base.html" %}
+
+{% block title %} Histórico Financeiro {% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Histórico Financeiro</h1>
+
+     <!-- Filtro por Mês e Ano -->
+<!-- main/view.html -->
+<form id="filtroForm" method="GET" action="{% url 'view' %}" class="form-inline mb-2">
+    <div class="form-group mr-2">
+        {{ filtro_form.mes }}
+    </div>
+    <div class="form-group mr-2">
+        {{ filtro_form.ano }}
+    </div>
+    <button type="submit" class="btn btn-secondary mr-2">Filtrar</button>
+    <button type="button" class="btn btn-dark" onclick="limparFiltro()">Limpar</button>
+</form>
+
+<script>
+    function limparFiltro() {
+        // Define os valores dos campos de filtro para vazio
+        document.getElementById('id_mes').value = '';
+        document.getElementById('id_ano').value = '';
+        
+        // Submeter o formulário após redefinir para mostrar todos os dados
+        document.getElementById('filtroForm').submit();
+    }
+</script>
+
+
+    <!-- Tabela para Entradas -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+            <h2 class="mb-0">Entradas</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entrada in entradas %}
+                        <tr>
+                            <td>{{ entrada.descricao }}</td>
+                            <td>{{ entrada.data }}</td>
+                            <td>{{ entrada.valor }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted">
+            <p class="font-weight-bold">Total de Entradas: {{ total_entradas }}</p>
+        </div>
+    </div>
+
+    <!-- Tabela para Saídas -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
+            <h2 class="mb-0">Saídas</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for saida in saidas %}
+                        <tr>
+                            <td>{{ saida.descricao }}</td>
+                            <td>{{ saida.data }}</td>
+                            <td>{{ saida.valor }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted">
+            <p class="font-weight-bold">Total de Saídas: {{ total_saidas }}</p>
+        </div>
+    </div>
+{% endblock %}
